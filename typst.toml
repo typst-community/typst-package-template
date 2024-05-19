@@ -1,0 +1,11 @@
+[package]
+name = ""
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = [""]
+keywords = [""]
+license = "GPL-3.0-only"
+repository = ""
+description = ""
+exclude = ["README.md", "CHANGELOG.md", "Justfile", "docs"]
+categories = []

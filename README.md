@@ -28,7 +28,7 @@ $ Final step
 
 A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
 
-```
+```typ
 #import "@preview/my-package:0.1.0": *
 
 #let my-complicated-example = ...

@@ -3,6 +3,20 @@
 
 A short description about the project and/or client.
 
+## Template adaptation checklist
+
+- [ ] Fill out `README.md`
+  - Change the `my-package` package name, including code snippets
+  - Check section contents and/or delete sections that don't apply
+- [ ] Check and/or replace `LICENSE` by something that suits your needs
+- [ ] Fill out `typst.toml`
+  - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
+- [ ] Adapt Repository URLs in `CHANGELOG.md`
+  - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
+- [ ] remove/replace the example test case
+- [ ] (add your actual code, docs and tests)
+- [ ] remove this section from the README
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.

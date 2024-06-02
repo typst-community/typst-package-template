@@ -1,4 +1,4 @@
-# [unreleased](https://github.com/author/mr-package/releases/tags/)
+# [unreleased](https://github.com/author/my-package/releases/tags/)
 ## Added
 
 ## Removed
@@ -9,5 +9,5 @@
 
 ---
 
-# [v0.1.0](https://github.com/author/mr-package/releases/tags/v0.1.0)
+# [v0.1.0](https://github.com/author/my-package/releases/tags/v0.1.0)
 Initial Release

@@ -18,5 +18,15 @@ test *args:
 update *args:
 	typst-test update {{ args }}
 
+# package the library into the specified destination folder
+package target:
+  ./scripts/package "{{target}}"
+
+# install the library with the "@local" prefix
+install: (package "@local")
+
+# install the library with the "@preview" prefix (for pre-release testing)
+install-preview: (package "@preview")
+
 # run ci suite
 ci: test doc

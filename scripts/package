@@ -4,15 +4,50 @@ set -eu
 # adapted from https://github.com/johannes-wolf/cetz/blob/35c0868378cea5ad323cc0d9c2f76de8ed9ba5bd/scripts/package
 # licensed under Apache License 2.0
 
+# ignore rules
+readarray -t ignores < <(grep -v '^#' .typstignore | grep '[^[:blank:]]')
+
+# recursively print all files that are not excluded via .typstignore
+function enumerate {
+	local root="$1"
+	if [[ -f "$root" ]]; then
+		echo "$root"
+	else
+		local files
+		readarray -t files < <(find "$root" \
+      -mindepth 1 -maxdepth 1 \
+      -not -name .git \
+      -not -name .typstignore)
+		# declare -p files >&2
+
+		local f
+		for f in "${files[@]}"; do
+			local include
+			include=1
+
+			local ignore
+			for ignore in "${ignores[@]}"; do
+				if [[ "$ignore" =~ ^! ]]; then
+					ignore="${ignore:1}"
+					if [[ "$f" == ./$ignore ]]; then
+						# echo "\"$f\" matched \"!$ignore\"" >&2
+						include=1
+					fi
+				elif [[ "$f" == ./$ignore ]]; then
+					# echo "\"$f\" matched \"$ignore\"" >&2
+					include=0
+				fi
+			done
+			if [[ "$include" == 1 ]]; then
+				enumerate "$f"
+			fi
+		done
+	fi
+}
+
 # List of all files that get packaged
-files=(
-  docs/manual.pdf
-  src/
-  CHANGELOG.md
-  LICENSE
-  README.md
-  typst.toml
-)
+readarray -t files < <(enumerate ".")
+# declare -p files >&2
 
 # Local package directories per platform
 if [[ "$OSTYPE" == "linux"* ]]; then
@@ -60,10 +95,8 @@ fi
 TMP="$(mktemp -d)"
 
 for f in "${files[@]}"; do
-  if [[ -e "$f" ]]; then
-    mkdir -p "$TMP/$(dirname "$f")" 2>/dev/null
-    cp -r "$ROOT/$f" "$TMP/$f"
-  fi
+  mkdir -p "$TMP/$(dirname "$f")" 2>/dev/null
+  cp -r "$ROOT/$f" "$TMP/$f"
 done
 
 TARGET="${TARGET:?}/${PKG_PREFIX:?}/${VERSION:?}"

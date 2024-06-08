@@ -7,6 +7,10 @@ on:
 
 jobs:
   tests:
+    strategy:
+      matrix:
+        # add any other Typst versions that your package should support
+        typst-version: ["0.11"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,7 +42,7 @@ jobs:
       - name: Setup typst
         uses: typst-community/setup-typst@v3
         with:
-          typst-version: '0.11'
+          typst-version: ${{ matrix.typst-version }}
 
       - name: Run test suite
         run: just ci

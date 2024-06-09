@@ -105,4 +105,7 @@ if rm -r "${TARGET:?}" 2>/dev/null; then
   echo "Overwriting existing version."
 fi
 mkdir -p "$TARGET"
+
+# include hidden files by setting dotglob
+shopt -s dotglob
 mv "$TMP"/* "$TARGET"

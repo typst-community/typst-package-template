@@ -13,7 +13,14 @@ keywords = []
 categories = []
 disciplines = []
 compiler = ""
-exclude = ["README.md", "CHANGELOG.md", "Justfile", "docs"]
+exclude = [
+	".github",
+	"docs",
+	"scripts",
+	"tests",
+	".typstignore",
+	"Justfile",
+]
 
 # [template]
 # path = "template"

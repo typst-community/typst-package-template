@@ -60,6 +60,7 @@ jobs:
           path: |
             tests/**/diff/*.png
             tests/**/out/*.png
+            tests/**/ref/*.png
           retention-days: 5
 
       - name: Build docs

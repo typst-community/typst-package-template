@@ -45,6 +45,7 @@ jobs:
           tag: ci-semi-stable
 
       - name: Setup typst
+        id: setup-typst
         uses: typst-community/setup-typst@v3
         with:
           typst-version: ${{ matrix.typst-version }}
@@ -56,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: diffs
+          name: typst-${{ steps.setup-typst.outputs.typst-version }}-diffs
           path: |
             tests/**/diff/*.png
             tests/**/out/*.png

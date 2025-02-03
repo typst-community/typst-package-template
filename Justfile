@@ -23,8 +23,8 @@ package target:
   ./scripts/package "{{target}}"
 
 # list installed libraries
-list:
-  ./scripts/list
+list *args:
+  ./scripts/list {{ args }}
 
 # install the library with the "@local" prefix
 install: (package "@local")

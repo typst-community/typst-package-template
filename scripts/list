@@ -8,11 +8,11 @@ if [[ "${1:-}" == "help" ]]; then
   echo ""
   echo "List installed libraries:"
   echo "- in the DATA_DIR and the CACHE_DIR"
-  echo "- under the @local, @preview or other prefixes"
+  echo "- under the @local, @preview or other namespaces"
   echo "- all their versions"
   echo ""
-  echo "Local package prefix: $DATA_DIR/typst/package/local"
-  echo "Local preview package prefix: $DATA_DIR/typst/package/preview"
+  echo "Libraries in DATA_DIR: $DATA_DIR/typst/package/<namespace>/<library>/<version>/"
+  echo "Libraries in CACHE_DIR: $CACHE_DIR/typst/package/<namespace>/<library>/<version>/"
   exit 1
 fi
 
@@ -23,16 +23,16 @@ get_subfolders() {
 }
 
 list_libraries() {
-  prefixes=$(get_subfolders $1)
-  if [ -n "$prefixes" ]; then
-    for prefix in $prefixes; do
-      libraries=$(get_subfolders $1/$prefix)
+  namespaces=$(get_subfolders $1)
+  if [ -n "$namespaces" ]; then
+    for namespace in $namespaces; do
+      libraries=$(get_subfolders $1/$namespace)
       if [ -n "$libraries" ]; then
         for library in $libraries; do
-          versions=$(get_subfolders $1/$prefix/$library)
+          versions=$(get_subfolders $1/$namespace/$library)
           if [ -n "$libraries" ]; then
             for version in $versions; do
-              echo -e "  \e]8;;file://$1/$prefix/$library/$version/\e\\@$prefix/$library:$version\e]8;;\e\\"
+              echo -e "  \e]8;;file://$1/$namespace/$library/$version/\e\\@$namespace/$library:$version\e]8;;\e\\"
             done
           fi
         done

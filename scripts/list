@@ -17,28 +17,28 @@ if [[ "${1:-}" == "help" ]]; then
 fi
 
 get_subfolders() {
-    for subfolder in $(find $1 -maxdepth 1 -mindepth 1 -type d); do
-        echo "$(basename ${subfolder})"
-    done
+  for subfolder in $(find $1 -maxdepth 1 -mindepth 1 -type d); do
+    echo "$(basename ${subfolder})"
+  done
 }
 
 list_libraries() {
-    prefixes=$(get_subfolders $1)
-    if [ -n "$prefixes" ]; then
-        for prefix in $prefixes; do
-            libraries=$(get_subfolders $1/$prefix)
-            if [ -n "$libraries" ]; then
-                for library in $libraries; do
-                    versions=$(get_subfolders $1/$prefix/$library)
-                    if [ -n "$libraries" ]; then
-                        for version in $versions; do
-                            echo -e "  \e]8;;file://$1/$prefix/$library/$version/\e\\@$prefix/$library:$version\e]8;;\e\\"
-                        done
-                    fi
-                done
-            fi
+  prefixes=$(get_subfolders $1)
+  if [ -n "$prefixes" ]; then
+    for prefix in $prefixes; do
+      libraries=$(get_subfolders $1/$prefix)
+      if [ -n "$libraries" ]; then
+        for library in $libraries; do
+          versions=$(get_subfolders $1/$prefix/$library)
+          if [ -n "$libraries" ]; then
+            for version in $versions; do
+              echo -e "  \e]8;;file://$1/$prefix/$library/$version/\e\\@$prefix/$library:$version\e]8;;\e\\"
+            done
+          fi
         done
-    fi
+      fi
+    done
+  fi
 }
 
 # Start with the data directory, which have precedence over the cache directory

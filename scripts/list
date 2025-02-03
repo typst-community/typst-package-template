@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -eu
+
+. "$(dirname "${BASH_SOURCE[0]}")/setup"
+
+if [[ "${1:-}" == "help" ]]; then
+  echo "list"
+  echo ""
+  echo "List installed libraries:"
+  echo "- in the DATA_DIR and the CACHE_DIR"
+  echo "- under the @local, @preview or other prefixes"
+  echo "- all their versions"
+  echo ""
+  echo "Local package prefix: $DATA_DIR/typst/package/local"
+  echo "Local preview package prefix: $DATA_DIR/typst/package/preview"
+  exit 1
+fi
+
+get_subfolders() {
+    for subfolder in $(find $1 -maxdepth 1 -mindepth 1 -type d); do
+        echo "$(basename ${subfolder})"
+    done
+}
+
+prefixes=$(get_subfolders $DATA_DIR/typst/packages/)
+if [ -z "$prefixes" ]; then
+    echo "No prefixes found in $DATA_DIR/typst/packages/"
+else
+    echo "Prefixes found:"
+    for prefix in $prefixes; do
+        echo "$prefix"
+    done
+fi

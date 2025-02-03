@@ -22,6 +22,10 @@ update *args:
 package target:
   ./scripts/package "{{target}}"
 
+# list installed libraries
+list:
+  ./scripts/list
+
 # install the library with the "@local" prefix
 install: (package "@local")
 

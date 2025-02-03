@@ -22,12 +22,15 @@ get_subfolders() {
     done
 }
 
+echo "In $DATA_DIR/typst/packages/"
 prefixes=$(get_subfolders $DATA_DIR/typst/packages/)
-if [ -z "$prefixes" ]; then
-    echo "No prefixes found in $DATA_DIR/typst/packages/"
-else
-    echo "Prefixes found:"
+if [ -n "$prefixes" ]; then
     for prefix in $prefixes; do
-        echo "$prefix"
+        libraries=$(get_subfolders $DATA_DIR/typst/packages/$prefix)
+        if [ -n "$libraries" ]; then
+            for library in $libraries; do
+                echo "  @$prefix/$library"
+            done
+        fi
     done
 fi

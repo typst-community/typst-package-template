@@ -29,7 +29,12 @@ if [ -n "$prefixes" ]; then
         libraries=$(get_subfolders $DATA_DIR/typst/packages/$prefix)
         if [ -n "$libraries" ]; then
             for library in $libraries; do
-                echo "  @$prefix/$library"
+                versions=$(get_subfolders $DATA_DIR/typst/packages/$prefix/$library)
+                if [ -n "$libraries" ]; then
+                    for version in $versions; do
+                        echo "  @$prefix/$library:$version"
+                    done
+                fi
             done
         fi
     done

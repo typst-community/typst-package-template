@@ -22,20 +22,26 @@ get_subfolders() {
     done
 }
 
+list_libraries() {
+    prefixes=$(get_subfolders $1)
+    if [ -n "$prefixes" ]; then
+        for prefix in $prefixes; do
+            libraries=$(get_subfolders $1/$prefix)
+            if [ -n "$libraries" ]; then
+                for library in $libraries; do
+                    versions=$(get_subfolders $1/$prefix/$library)
+                    if [ -n "$libraries" ]; then
+                        for version in $versions; do
+                            echo "  @$prefix/$library:$version"
+                        done
+                    fi
+                done
+            fi
+        done
+    fi
+}
+
+echo "In $CACHE_DIR/typst/packages/"
+list_libraries $CACHE_DIR/typst/packages/
 echo "In $DATA_DIR/typst/packages/"
-prefixes=$(get_subfolders $DATA_DIR/typst/packages/)
-if [ -n "$prefixes" ]; then
-    for prefix in $prefixes; do
-        libraries=$(get_subfolders $DATA_DIR/typst/packages/$prefix)
-        if [ -n "$libraries" ]; then
-            for library in $libraries; do
-                versions=$(get_subfolders $DATA_DIR/typst/packages/$prefix/$library)
-                if [ -n "$libraries" ]; then
-                    for version in $versions; do
-                        echo "  @$prefix/$library:$version"
-                    done
-                fi
-            done
-        fi
-    done
-fi
+list_libraries $DATA_DIR/typst/packages/

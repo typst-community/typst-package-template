@@ -12,6 +12,16 @@ else
   DATA_DIR="${APPDATA}"
 fi
 
+# Cache package directories per platform
+# See https://github.com/typst/packages?tab=readme-ov-file#downloads
+if [[ "$OSTYPE" == "linux"* ]]; then
+  CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  CACHE_DIR="$HOME/Library/Caches"
+else
+  CACHE_DIR="${LOCALAPPDATA}"
+fi
+
 function read-toml() {
   local file="$1"
   local key="$2"

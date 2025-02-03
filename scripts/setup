@@ -4,6 +4,7 @@
 # licensed under Apache License 2.0
 
 # Local package directories per platform
+# See https://github.com/typst/packages/?tab=readme-ov-file#local-packages
 if [[ "$OSTYPE" == "linux"* ]]; then
   DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}"
 elif [[ "$OSTYPE" == "darwin"* ]]; then

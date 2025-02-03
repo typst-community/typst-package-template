@@ -16,22 +16,25 @@ if [[ "${1:-}" == "help" ]]; then
   exit 1
 fi
 
+# Returns the name of all folders inside $1
 get_subfolders() {
   for subfolder in $(find $1 -maxdepth 1 -mindepth 1 -type d); do
     echo "$(basename ${subfolder})"
   done
 }
 
+# Prints found Typst libraries in $1
 list_libraries() {
-  namespaces=$(get_subfolders $1)
-  if [ -n "$namespaces" ]; then
+  namespaces=$(get_subfolders $1) # get all namespaces
+  if [ -n "$namespaces" ]; then # if namespaces not empty
     for namespace in $namespaces; do
-      libraries=$(get_subfolders $1/$namespace)
-      if [ -n "$libraries" ]; then
+      libraries=$(get_subfolders $1/$namespace) # get all libraries under this namespace
+      if [ -n "$libraries" ]; then # if libraries not empty
         for library in $libraries; do
-          versions=$(get_subfolders $1/$namespace/$library)
-          if [ -n "$libraries" ]; then
+          versions=$(get_subfolders $1/$namespace/$library) # get all versions of this library
+          if [ -n "$libraries" ]; then # if versions not empty
             for version in $versions; do
+              # print "  @<namespace>/<library>:<version>" with a hyperlink
               echo -e "  \e]8;;file://$1/$namespace/$library/$version/\e\\@$namespace/$library:$version\e]8;;\e\\"
             done
           fi
@@ -44,6 +47,7 @@ list_libraries() {
 # Start with the data directory, which have precedence over the cache directory
 echo "In $DATA_DIR/typst/packages/"
 list_libraries $DATA_DIR/typst/packages/
+
 # Then the cache directory, used by on-demand downloads with the Typst compiler
 echo "In $CACHE_DIR/typst/packages/"
 list_libraries $CACHE_DIR/typst/packages/

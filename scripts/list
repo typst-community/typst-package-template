@@ -32,7 +32,7 @@ list_libraries() {
                     versions=$(get_subfolders $1/$prefix/$library)
                     if [ -n "$libraries" ]; then
                         for version in $versions; do
-                            echo "  @$prefix/$library:$version"
+                            echo -e "  \e]8;;file://$1/$prefix/$library/$version/\e\\@$prefix/$library:$version\e]8;;\e\\"
                         done
                     fi
                 done

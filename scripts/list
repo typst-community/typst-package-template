@@ -41,7 +41,9 @@ list_libraries() {
     fi
 }
 
-echo "In $CACHE_DIR/typst/packages/"
-list_libraries $CACHE_DIR/typst/packages/
+# Start with the data directory, which have precedence over the cache directory
 echo "In $DATA_DIR/typst/packages/"
 list_libraries $DATA_DIR/typst/packages/
+# Then the cache directory, used by on-demand downloads with the Typst compiler
+echo "In $CACHE_DIR/typst/packages/"
+list_libraries $CACHE_DIR/typst/packages/

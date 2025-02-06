@@ -20,6 +20,8 @@ exclude = [
 	"tests",
 	".typstignore",
 	"Justfile",
+	"thumbnail-dark.png",
+	"thumbnail-light.png",
 ]
 
 # [template]

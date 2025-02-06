@@ -36,6 +36,11 @@ These instructions will get you a copy of the project up and running on the typs
 #my-func()
 ```
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./thumbnail-dark.svg">
+  <img src="./thumbnail-light.svg">
+</picture>
+
 ### Installation
 
 A step by step guide that will tell you how to get the development environment up and running. This should explain how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.

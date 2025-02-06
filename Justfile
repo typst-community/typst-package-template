@@ -9,8 +9,8 @@ default:
 # generate manual
 doc:
 	typst compile docs/manual.typ docs/manual.pdf
-	typst compile --ppi 250 docs/thumbnail.typ thumbnail-light.png
-	typst compile --ppi 250 --input theme=dark docs/thumbnail.typ thumbnail-dark.png
+	typst compile docs/thumbnail.typ thumbnail-light.svg
+	typst compile --input theme=dark docs/thumbnail.typ thumbnail-dark.svg
 
 # run test suite
 test *args:

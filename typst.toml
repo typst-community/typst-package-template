@@ -14,14 +14,14 @@ categories = []
 disciplines = []
 # compiler = ""
 exclude = [
-	".github",
-	"docs",
-	"scripts",
-	"tests",
-	".typstignore",
-	"Justfile",
-	"thumbnail-dark.svg",
-	"thumbnail-light.svg",
+  ".github",
+  "docs",
+  "scripts",
+  "tests",
+  ".typstignore",
+  "Justfile",
+  "thumbnail-dark.svg",
+  "thumbnail-light.svg",
 ]
 
 # [template]

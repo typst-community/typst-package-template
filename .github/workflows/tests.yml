@@ -23,22 +23,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Probe runner package cache
-        uses: awalsh128/cache-apt-pkgs-action@v1
+      - name: Install just and tytanic
+        uses: taiki-e/install-action@v2
         with:
-          packages: cargo
-          version: 1.0
-
-      - name: Install just from crates.io
-        uses: baptiste0928/cargo-install@v3
-        with:
-          crate: just
-
-      - name: Install tytanic from crates.io
-        uses: baptiste0928/cargo-install@v3
-        with:
-          crate: tytanic
-          version: ${{ matrix.typst-version.tytanic }}
+          tool: just,tytanic@${{ matrix.typst-version.tytanic }}
 
       - name: Setup typst
         id: setup-typst

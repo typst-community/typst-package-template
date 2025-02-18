@@ -8,17 +8,20 @@ on:
 jobs:
   tests:
     strategy:
+      # run tests on all versions, even if one fails
+      fail-fast: false
       matrix:
         # add any other Typst versions that your package should support
         typst-version:
           - typst: 0.12
             tytanic: 0.1
-        # the docs don't need to build with all versions supported by the package;
-        # the latest one is enough
-        include:
-          - typst-version: {typst: 0.12, tytanic: 0.1}
-            doc: 1
+            # the docs don't need to build with all versions supported by the package;
+            # the latest one is enough
+            doc: true
+
+    name: Test for ${{ matrix.typst-version.typst }} (Tytanic ${{ matrix.typst-version.tytanic }}${{ matrix.typst-version.doc && ', with docs' }})
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,5 +52,5 @@ jobs:
           retention-days: 5
 
       - name: Build docs
-        if: ${{ matrix.doc }}
+        if: ${{ matrix.typst-version.doc }}
         run: just doc

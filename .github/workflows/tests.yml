@@ -18,6 +18,8 @@ jobs:
             # the docs don't need to build with all versions supported by the package;
             # the latest one is enough
             doc: true
+          - typst: 0.13.0-rc1
+            tytanic: 0.2.0-rc1
 
     name: Test for ${{ matrix.typst-version.typst }} (Tytanic ${{ matrix.typst-version.tytanic }}${{ matrix.typst-version.doc && ', with docs' }})
     runs-on: ubuntu-latest
@@ -26,10 +28,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install just and tytanic
+      - name: Install just
         uses: taiki-e/install-action@v2
         with:
-          tool: just,tytanic@${{ matrix.typst-version.tytanic }}
+          tool: just
+
+      - name: Install tytanic
+        uses: taiki-e/install-action@v2
+        if: ${{ !contains(matrix.typst-version.tytanic, '-rc') }}
+        with:
+          tool: tytanic@${{ matrix.typst-version.tytanic }}
+
+      - name: Install tytanic (prerelease)
+        uses: taiki-e/cache-cargo-install-action@v2
+        if: ${{ contains(matrix.typst-version.tytanic, '-rc') }}
+        with:
+          tool: tytanic@${{ matrix.typst-version.tytanic }}
 
       - name: Setup typst
         id: setup-typst

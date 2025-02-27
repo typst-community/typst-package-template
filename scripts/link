@@ -24,6 +24,8 @@ echo "Install dir: $TARGET"
 
 TARGET="${TARGET:?}/${PKG_PREFIX:?}/${VERSION:?}"
 if [ ! -e "$TARGET" ]; then
+	mkdir -p "$TARGET"
+
 	echo "Linked from: $TARGET"
 	ln -s "$PWD" "$TARGET"
 else

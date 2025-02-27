@@ -22,9 +22,10 @@ fi
 TARGET="$(resolve-target "${1:?Missing target path, @local or @preview}")"
 echo "Install dir: $TARGET"
 
-TARGET="${TARGET:?}/${PKG_PREFIX:?}/${VERSION:?}"
+PKGDIR="${TARGET:?}/${PKG_PREFIX:?}"
+TARGET="${PKGDIR}/${VERSION:?}"
 if [ ! -e "$TARGET" ]; then
-	mkdir -p "$TARGET"
+	mkdir -p "$PKGDIR"
 
 	echo "Linked from: $TARGET"
 	ln -s "$PWD" "$TARGET"

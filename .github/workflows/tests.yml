@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup typst
         id: setup-typst
-        uses: typst-community/setup-typst@v3
+        uses: typst-community/setup-typst@v4
         with:
           typst-version: ${{ matrix.typst-version.typst }}
 

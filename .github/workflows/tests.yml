@@ -28,10 +28,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install just and tytanic
+      - name: Install just
         uses: taiki-e/install-action@v2
         with:
-          tool: just,tytanic@${{ matrix.typst-version.tytanic }}
+          tool: just
+
+      - name: Install tytanic
+        uses: typst-community/setup-tytanic@v1
+        with:
+          tytanic-version: ${{ matrix.typst-version.tytanic }}
 
       - name: Setup typst
         id: setup-typst

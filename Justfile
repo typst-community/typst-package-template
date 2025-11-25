@@ -14,7 +14,7 @@ doc:
 
 # run test suite
 test *args:
-  tt run {{ args }}
+  tt run --no-fail-fast {{ args }}
 
 # update test cases
 update *args:

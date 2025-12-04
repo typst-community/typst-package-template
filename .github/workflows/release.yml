@@ -51,6 +51,7 @@ jobs:
           repository: ${{ env.REGISTRY_REPO }}
           token: ${{ secrets.REGISTRY_TOKEN }}
           path: typst-packages
+          sparse-checkout: ${{ env.PATH_PREFIX }}/${{ env.PKG_NAME }}/${{ env.PKG_VERSION }}
 
       - name: Release package
         run: |

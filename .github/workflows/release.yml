@@ -4,6 +4,9 @@ on:
     tags: [ v* ]
 
 env:
+  # the forge (host) at which the registry lies
+  # for Universe, this is Github (https://github.com)
+  REGISTRY_FORGE: https://github.com
   # the repository hosting published packages
   # this is cloned to ensure pull requests are based on the latest upstream commit
   # for Universe, this is typst/packages (https://github.com/typst/packages/)
@@ -93,6 +96,7 @@ jobs:
       - name: Checkout package registry
         uses: actions/checkout@v6
         with:
+          github-server-url: ${{ env.REGISTRY_FORGE }}
           repository: ${{ env.REGISTRY_REPO }}
           token: ${{ secrets.REGISTRY_TOKEN }}
           path: package-registry
@@ -128,7 +132,7 @@ jobs:
           PKG_ID: ${{ needs.build.outputs.pkg-id }}
         run: |
           cd package-registry
-          git remote add fork "https://github.com/${REGISTRY_FORK}"
+          git remote add fork "${REGISTRY_FORGE}/${REGISTRY_FORK}"
 
           echo "NOTE: if the following command fails with"
           echo '  "refusing to allow a Personal Access Token to create or update workflow'

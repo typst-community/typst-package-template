@@ -80,7 +80,7 @@ jobs:
         with:
           pattern: ${{ needs.build.outputs.pkg-id }}
 
-      - name: Release package
+      - name: Commit package release
         env:
           PKG_NAME: ${{ needs.build.outputs.pkg-name }}
           PKG_VERSION: ${{ needs.build.outputs.pkg-version }}
@@ -99,4 +99,10 @@ jobs:
           git checkout -b "${PKG_ID}"
           git add .
           git commit -m "${PKG_NAME}:${PKG_VERSION}"
-          git push --set-upstream origin "${PKG_ID}"
+
+      - name: Push package release to the fork
+        env:
+          PKG_ID: ${{ needs.build.outputs.pkg-id }}
+        run: |
+          cd typst-packages
+          git push --force --set-upstream origin "${PKG_ID}"

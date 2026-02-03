@@ -1,4 +1,4 @@
-name: Package and push to registry repo
+name: Package, release, publish
 on:
   push:
     tags: [ v* ]
@@ -60,6 +60,24 @@ jobs:
           name: ${{ env.PKG_NAME }}-${{ env.PKG_VERSION }}
           path: dist/*
           retention-days: 3
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ${{ needs.build.outputs.pkg-id }}
+
+      - name: Add artifacts to release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ needs.build.outputs.pkg-id }}/*
 
   publish:
     name: Publish to a registry fork

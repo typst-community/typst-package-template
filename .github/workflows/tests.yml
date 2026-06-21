@@ -19,6 +19,8 @@ jobs:
             tytanic: 0.2
           - typst: 0.14
             tytanic: 0.3
+          - typst: 0.15
+            tytanic: 0.4
             # the docs don't need to build with all versions supported by the package;
             # the latest one is enough
             doc: true
